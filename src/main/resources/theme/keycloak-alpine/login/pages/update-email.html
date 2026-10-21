@@ -1,0 +1,145 @@
+<div class="pf-v5-c-login" x-data="updateProfilePage">
+  <div class="pf-v5-c-login__container">
+    <main class="pf-v5-c-login__main">
+      <header class="pf-v5-c-login__main-header">
+        <h1 class="pf-v5-c-title pf-m-3xl" x-text="$msg('loginProfileTitle')"></h1>
+        <template x-if="ctx.auth?.showUsername">
+          <div class="pf-v5-c-login__main-header-desc">
+            <span x-text="ctx.auth.attemptedUsername"></span>
+          </div>
+        </template>
+      </header>
+      
+      <div class="pf-v5-c-login__main-body">
+        <template x-if="ctx.message && ctx.message.summary">
+          <div x-data="kcAlert">
+            <div class="pf-v5-c-alert pf-m-inline" :class="alertClass">
+              <div class="pf-v5-c-alert__icon">
+                <i :class="iconClass"></i>
+              </div>
+              <p class="pf-v5-c-alert__title" x-html="ctx.message.summary"></p>
+            </div>
+          </div>
+        </template>
+        
+        <form class="pf-v5-c-form" :action="ctx.url.loginAction" method="post">
+          <template x-if="ctx.realm.editUsernameAllowed">
+            <div class="pf-v5-c-form__group">
+              <div class="pf-v5-c-form__group-label">
+                <label class="pf-v5-c-form__label" for="username">
+                  <span class="pf-v5-c-form__label-text" x-text="$msg('username')"></span>
+                  <span class="pf-v5-c-form__label-required" aria-hidden="true">*</span>
+                </label>
+              </div>
+              <div class="pf-v5-c-form__group-control">
+                <input
+                  class="pf-v5-c-form-control"
+                  :class="{ 'pf-m-error': usernameError }"
+                  type="text"
+                  id="username"
+                  name="username"
+                  :value="ctx.register?.formData?.username || ''"
+                  autocomplete="username"
+                  required
+                />
+                <template x-if="usernameError">
+                  <div class="pf-v5-c-form__helper-text pf-m-error">
+                    <span x-text="usernameError"></span>
+                  </div>
+                </template>
+              </div>
+            </div>
+          </template>
+          
+          <div class="pf-v5-c-form__group">
+            <div class="pf-v5-c-form__group-label">
+              <label class="pf-v5-c-form__label" for="email">
+                <span class="pf-v5-c-form__label-text" x-text="$msg('email')"></span>
+                <span class="pf-v5-c-form__label-required" aria-hidden="true">*</span>
+              </label>
+            </div>
+            <div class="pf-v5-c-form__group-control">
+              <input
+                class="pf-v5-c-form-control"
+                :class="{ 'pf-m-error': emailError }"
+                type="email"
+                id="email"
+                name="email"
+                :value="ctx.register?.formData?.email || ''"
+                autocomplete="email"
+                autofocus
+                required
+              />
+              <template x-if="emailError">
+                <div class="pf-v5-c-form__helper-text pf-m-error">
+                  <span x-text="emailError"></span>
+                </div>
+              </template>
+            </div>
+          </div>
+          
+          <div class="pf-v5-c-form__group">
+            <div class="pf-v5-c-form__group-label">
+              <label class="pf-v5-c-form__label" for="firstName">
+                <span class="pf-v5-c-form__label-text" x-text="$msg('firstName')"></span>
+                <span class="pf-v5-c-form__label-required" aria-hidden="true">*</span>
+              </label>
+            </div>
+            <div class="pf-v5-c-form__group-control">
+              <input
+                class="pf-v5-c-form-control"
+                :class="{ 'pf-m-error': firstNameError }"
+                type="text"
+                id="firstName"
+                name="firstName"
+                :value="ctx.register?.formData?.firstName || ''"
+                autocomplete="given-name"
+                required
+              />
+              <template x-if="firstNameError">
+                <div class="pf-v5-c-form__helper-text pf-m-error">
+                  <span x-text="firstNameError"></span>
+                </div>
+              </template>
+            </div>
+          </div>
+          
+          <div class="pf-v5-c-form__group">
+            <div class="pf-v5-c-form__group-label">
+              <label class="pf-v5-c-form__label" for="lastName">
+                <span class="pf-v5-c-form__label-text" x-text="$msg('lastName')"></span>
+                <span class="pf-v5-c-form__label-required" aria-hidden="true">*</span>
+              </label>
+            </div>
+            <div class="pf-v5-c-form__group-control">
+              <input
+                class="pf-v5-c-form-control"
+                :class="{ 'pf-m-error': lastNameError }"
+                type="text"
+                id="lastName"
+                name="lastName"
+                :value="ctx.register?.formData?.lastName || ''"
+                autocomplete="family-name"
+                required
+              />
+              <template x-if="lastNameError">
+                <div class="pf-v5-c-form__helper-text pf-m-error">
+                  <span x-text="lastNameError"></span>
+                </div>
+              </template>
+            </div>
+          </div>
+          
+          <div class="pf-v5-c-form__group pf-m-action">
+            <div class="pf-v5-l-flex">
+              <template x-if="ctx.isAppInitiatedAction">
+                <button type="submit" name="cancel-aia" value="true" class="pf-v5-c-button pf-m-secondary" x-text="$msg('doCancel')"></button>
+              </template>
+              <button type="submit" class="pf-v5-c-button pf-m-primary" x-text="$msg('doSubmit')"></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+</div>

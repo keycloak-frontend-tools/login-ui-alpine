@@ -1,0 +1,96 @@
+<div class="pf-v5-c-login" x-data="otpPage">
+  <div class="pf-v5-c-login__container">
+    <main class="pf-v5-c-login__main">
+      <header class="pf-v5-c-login__main-header">
+        <h1 class="pf-v5-c-title pf-m-3xl" x-text="$msg('loginTotpTitle')"></h1>
+        <template x-if="ctx.auth?.showUsername">
+          <div class="pf-v5-c-login__main-header-desc">
+            <span x-text="ctx.auth.attemptedUsername"></span>
+            <a :href="ctx.url.loginRestartFlowUrl" class="pf-v5-c-button pf-m-link pf-m-inline">
+              <i class="fas fa-redo"></i>
+            </a>
+          </div>
+        </template>
+      </header>
+      
+      <div class="pf-v5-c-login__main-body">
+        <template x-if="ctx.message && ctx.message.summary && !otpError">
+          <div x-data="kcAlert">
+            <div class="pf-v5-c-alert pf-m-inline" :class="alertClass">
+              <div class="pf-v5-c-alert__icon">
+                <i :class="iconClass"></i>
+              </div>
+              <p class="pf-v5-c-alert__title" x-html="ctx.message.summary"></p>
+            </div>
+          </div>
+        </template>
+        
+        <form class="pf-v5-c-form" :action="ctx.url.loginAction" method="post">
+          <template x-if="hasMultipleCredentials">
+            <div class="pf-v5-c-form__group">
+              <div class="pf-v5-c-form__group-label">
+                <label class="pf-v5-c-form__label">
+                  <span class="pf-v5-c-form__label-text" x-text="$msg('loginTotpDeviceName')"></span>
+                </label>
+              </div>
+              <div class="pf-v5-c-form__group-control">
+                <template x-for="credential in ctx.otpLogin.userOtpCredentials" :key="credential.id">
+                  <div class="pf-v5-c-radio">
+                    <input
+                      class="pf-v5-c-radio__input"
+                      type="radio"
+                      name="selectedCredentialId"
+                      :id="'otp-' + credential.id"
+                      :value="credential.id"
+                      :checked="credential.id === ctx.otpLogin.selectedCredentialId"
+                    />
+                    <label class="pf-v5-c-radio__label" :for="'otp-' + credential.id" x-text="credential.userLabel"></label>
+                  </div>
+                </template>
+              </div>
+            </div>
+          </template>
+          
+          <div class="pf-v5-c-form__group">
+            <div class="pf-v5-c-form__group-label">
+              <label class="pf-v5-c-form__label" for="otp">
+                <span class="pf-v5-c-form__label-text" x-text="$msg('loginOtpOneTime')"></span>
+                <span class="pf-v5-c-form__label-required" aria-hidden="true">*</span>
+              </label>
+            </div>
+            <div class="pf-v5-c-form__group-control">
+              <input
+                class="pf-v5-c-form-control"
+                :class="{ 'pf-m-error': otpError }"
+                type="text"
+                id="otp"
+                name="otp"
+                autocomplete="one-time-code"
+                autofocus
+                required
+              />
+              <template x-if="otpError">
+                <div class="pf-v5-c-form__helper-text pf-m-error">
+                  <span x-text="otpError"></span>
+                </div>
+              </template>
+            </div>
+          </div>
+          
+          <div class="pf-v5-c-form__group pf-m-action">
+            <button class="pf-v5-c-button pf-m-primary pf-m-block" type="submit" x-text="$msg('doLogIn')"></button>
+          </div>
+        </form>
+      </div>
+      
+      <footer class="pf-v5-c-login__main-footer">
+        <template x-if="ctx.auth?.showTryAnotherWayLink">
+          <form :action="ctx.url.loginAction" method="post">
+            <input type="hidden" name="tryAnotherWay" value="on" />
+            <button type="submit" class="pf-v5-c-button pf-m-link" x-text="$msg('doTryAnotherWay')"></button>
+          </form>
+        </template>
+      </footer>
+    </main>
+  </div>
+</div>

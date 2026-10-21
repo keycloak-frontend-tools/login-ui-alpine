@@ -1,0 +1,71 @@
+<div class="pf-v5-c-login" x-data="recoveryCodesInputPage">
+  <div class="pf-v5-c-login__container">
+    <main class="pf-v5-c-login__main">
+      <header class="pf-v5-c-login__main-header">
+        <h1 class="pf-v5-c-title pf-m-3xl">Recovery Code</h1>
+        <template x-if="ctx.auth?.showUsername">
+          <div class="pf-v5-c-login__main-header-desc">
+            <span x-text="ctx.auth.attemptedUsername"></span>
+            <a :href="ctx.url.loginRestartFlowUrl" class="pf-v5-c-button pf-m-link pf-m-inline">
+              <i class="fas fa-redo"></i>
+            </a>
+          </div>
+        </template>
+      </header>
+      
+      <div class="pf-v5-c-login__main-body">
+        <template x-if="ctx.message && ctx.message.summary && !recoveryCodeError">
+          <div x-data="kcAlert">
+            <div class="pf-v5-c-alert pf-m-inline" :class="alertClass">
+              <div class="pf-v5-c-alert__icon">
+                <i :class="iconClass"></i>
+              </div>
+              <p class="pf-v5-c-alert__title" x-html="ctx.message.summary"></p>
+            </div>
+          </div>
+        </template>
+        
+        <form class="pf-v5-c-form" :action="ctx.url.loginAction" method="post">
+          <div class="pf-v5-c-form__group">
+            <div class="pf-v5-c-form__group-label">
+              <label class="pf-v5-c-form__label" for="recoveryCodeInput">
+                <span class="pf-v5-c-form__label-text">Enter recovery code #<span x-text="codeNumber"></span></span>
+                <span class="pf-v5-c-form__label-required" aria-hidden="true">*</span>
+              </label>
+            </div>
+            <div class="pf-v5-c-form__group-control">
+              <input
+                class="pf-v5-c-form-control"
+                :class="{ 'pf-m-error': recoveryCodeError }"
+                type="text"
+                id="recoveryCodeInput"
+                name="recoveryCodeInput"
+                autocomplete="off"
+                autofocus
+                required
+              />
+              <template x-if="recoveryCodeError">
+                <div class="pf-v5-c-form__helper-text pf-m-error">
+                  <span x-text="recoveryCodeError"></span>
+                </div>
+              </template>
+            </div>
+          </div>
+          
+          <div class="pf-v5-c-form__group pf-m-action">
+            <button type="submit" class="pf-v5-c-button pf-m-primary pf-m-block" x-text="$msg('doLogIn')"></button>
+          </div>
+        </form>
+      </div>
+      
+      <footer class="pf-v5-c-login__main-footer">
+        <template x-if="ctx.auth?.showTryAnotherWayLink">
+          <form :action="ctx.url.loginAction" method="post">
+            <input type="hidden" name="tryAnotherWay" value="on" />
+            <button type="submit" class="pf-v5-c-button pf-m-link" x-text="$msg('doTryAnotherWay')"></button>
+          </form>
+        </template>
+      </footer>
+    </main>
+  </div>
+</div>

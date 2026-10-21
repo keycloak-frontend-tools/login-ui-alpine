@@ -1,0 +1,46 @@
+<div class="pf-v5-c-login" x-data="oauthGrantPage">
+  <div class="pf-v5-c-login__container">
+    <main class="pf-v5-c-login__main">
+      <header class="pf-v5-c-login__main-header">
+        <h1 class="pf-v5-c-title pf-m-3xl" x-text="$msg('oauthGrantTitle', ctx.oauth?.client || '')"></h1>
+      </header>
+      
+      <div class="pf-v5-c-login__main-body">
+        <template x-if="ctx.message && ctx.message.summary">
+          <div x-data="kcAlert">
+            <div class="pf-v5-c-alert pf-m-inline" :class="alertClass">
+              <div class="pf-v5-c-alert__icon">
+                <i :class="iconClass"></i>
+              </div>
+              <p class="pf-v5-c-alert__title" x-html="ctx.message.summary"></p>
+            </div>
+          </div>
+        </template>
+        
+        <p x-text="$msg('oauthGrantRequest')"></p>
+        
+        <template x-if="ctx.oauth?.clientScopesRequested?.length > 0">
+          <div>
+            <p x-text="$msg('oauthGrantPermissions')"></p>
+            <ul class="pf-v5-c-list">
+              <template x-for="scope in ctx.oauth.clientScopesRequested" :key="scope.consentScreenText">
+                <li x-text="scope.consentScreenText"></li>
+              </template>
+            </ul>
+          </div>
+        </template>
+        
+        <form class="pf-v5-c-form" :action="ctx.url.oauthAction" method="post">
+          <input type="hidden" name="code" :value="ctx.oauth?.code" />
+          
+          <div class="pf-v5-c-form__group pf-m-action">
+            <div class="pf-v5-l-flex">
+              <button type="submit" name="cancel" value="true" class="pf-v5-c-button pf-m-secondary" x-text="$msg('doNo')"></button>
+              <button type="submit" name="accept" value="true" class="pf-v5-c-button pf-m-primary" x-text="$msg('doYes')"></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+</div>

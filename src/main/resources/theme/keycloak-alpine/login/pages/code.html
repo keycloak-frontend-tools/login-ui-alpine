@@ -1,0 +1,38 @@
+<div class="pf-v5-c-login" x-data="codePage">
+  <div class="pf-v5-c-login__container">
+    <main class="pf-v5-c-login__main">
+      <header class="pf-v5-c-login__main-header">
+        <h1 class="pf-v5-c-title pf-m-3xl" x-text="$msg('codeSuccessTitle')"></h1>
+      </header>
+      
+      <div class="pf-v5-c-login__main-body">
+        <template x-if="ctx.code?.error">
+          <div class="pf-v5-c-alert pf-m-danger pf-m-inline">
+            <div class="pf-v5-c-alert__icon">
+              <i class="fas fa-exclamation-circle"></i>
+            </div>
+            <p class="pf-v5-c-alert__title" x-text="ctx.code.error"></p>
+          </div>
+        </template>
+        
+        <template x-if="ctx.code?.code">
+          <div>
+            <p x-text="$msg('copyCodeInstruction')"></p>
+            
+            <div class="kc-code-display">
+              <code x-text="ctx.code.code" class="pf-v5-c-code-block__code"></code>
+              <button type="button" class="pf-v5-c-button pf-m-secondary" @click="copyCode">
+                <template x-if="!copied">
+                  <span><i class="fas fa-copy"></i> Copy</span>
+                </template>
+                <template x-if="copied">
+                  <span><i class="fas fa-check"></i> Copied!</span>
+                </template>
+              </button>
+            </div>
+          </div>
+        </template>
+      </div>
+    </main>
+  </div>
+</div>

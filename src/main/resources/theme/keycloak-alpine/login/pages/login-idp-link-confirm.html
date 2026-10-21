@@ -1,0 +1,35 @@
+<div class="pf-v5-c-login" x-data="idpLinkConfirmPage">
+  <div class="pf-v5-c-login__container">
+    <main class="pf-v5-c-login__main">
+      <header class="pf-v5-c-login__main-header">
+        <h1 class="pf-v5-c-title pf-m-3xl" x-text="$msg('confirmLinkIdpTitle')"></h1>
+      </header>
+      
+      <div class="pf-v5-c-login__main-body">
+        <template x-if="ctx.message && ctx.message.summary">
+          <div x-data="kcAlert">
+            <div class="pf-v5-c-alert pf-m-inline" :class="alertClass">
+              <div class="pf-v5-c-alert__icon">
+                <i :class="iconClass"></i>
+              </div>
+              <p class="pf-v5-c-alert__title" x-html="ctx.message.summary"></p>
+            </div>
+          </div>
+        </template>
+        
+        <form class="pf-v5-c-form" :action="ctx.url.loginAction" method="post">
+          <div class="pf-v5-c-form__group pf-m-action">
+            <div class="pf-v5-l-flex pf-m-column">
+              <button type="submit" name="submitAction" value="updateProfile" class="pf-v5-c-button pf-m-primary pf-m-block">
+                Review profile
+              </button>
+              <button type="submit" name="submitAction" value="linkAccount" class="pf-v5-c-button pf-m-secondary pf-m-block">
+                Link account
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+</div>

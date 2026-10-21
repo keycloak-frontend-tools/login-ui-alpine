@@ -1,0 +1,14 @@
+target/
+node_modules/
+*.class
+*.jar
+*.log
+.idea/
+*.iml
+.project
+.classpath
+.settings/
+.wireit/
+
+# Build output (generated from src/*.js)
+src/main/resources/theme/keycloak-alpine/login/resources/js/main.js

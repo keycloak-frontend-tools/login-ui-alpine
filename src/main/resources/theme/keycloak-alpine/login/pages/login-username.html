@@ -1,0 +1,81 @@
+<div class="pf-v5-c-login" x-data="loginUsernamePage">
+  <div class="pf-v5-c-login__container">
+    <main class="pf-v5-c-login__main">
+      <header class="pf-v5-c-login__main-header">
+        <h1 class="pf-v5-c-title pf-m-3xl" x-text="$msg('loginAccountTitle')"></h1>
+      </header>
+      
+      <div class="pf-v5-c-login__main-body">
+        <template x-if="ctx.message && ctx.message.summary && !usernameError">
+          <div x-data="kcAlert">
+            <div class="pf-v5-c-alert pf-m-inline" :class="alertClass">
+              <div class="pf-v5-c-alert__icon">
+                <i :class="iconClass"></i>
+              </div>
+              <p class="pf-v5-c-alert__title" x-html="ctx.message.summary"></p>
+            </div>
+          </div>
+        </template>
+        
+        <form class="pf-v5-c-form" :action="ctx.url.loginAction" method="post">
+          <div class="pf-v5-c-form__group">
+            <div class="pf-v5-c-form__group-label">
+              <label class="pf-v5-c-form__label" for="username">
+                <span class="pf-v5-c-form__label-text" x-text="usernameLabel"></span>
+                <span class="pf-v5-c-form__label-required" aria-hidden="true">*</span>
+              </label>
+            </div>
+            <div class="pf-v5-c-form__group-control">
+              <input
+                class="pf-v5-c-form-control"
+                :class="{ 'pf-m-error': usernameError }"
+                type="text"
+                id="username"
+                name="username"
+                :value="ctx.login?.username || ''"
+                autocomplete="username"
+                autofocus
+                required
+              />
+              <template x-if="usernameError">
+                <div class="pf-v5-c-form__helper-text pf-m-error">
+                  <span x-text="usernameError"></span>
+                </div>
+              </template>
+            </div>
+          </div>
+          
+          <div class="pf-v5-c-form__group pf-m-action">
+            <button class="pf-v5-c-button pf-m-primary pf-m-block" type="submit" x-text="$msg('doContinue')"></button>
+          </div>
+        </form>
+        
+        <template x-if="showSocialProviders">
+          <div class="kc-social-providers">
+            <hr class="pf-v5-c-divider" />
+            <ul class="pf-v5-c-list pf-m-plain">
+              <template x-for="provider in ctx.social.providers" :key="provider.alias">
+                <li>
+                  <a :href="provider.loginUrl" class="pf-v5-c-button pf-m-secondary pf-m-block">
+                    <span x-text="provider.displayName"></span>
+                  </a>
+                </li>
+              </template>
+            </ul>
+          </div>
+        </template>
+      </div>
+      
+      <footer class="pf-v5-c-login__main-footer">
+        <template x-if="showRegisterLink">
+          <div class="pf-v5-c-login__main-footer-band">
+            <p class="pf-v5-c-login__main-footer-band-item">
+              <span x-text="$msg('noAccount')"></span>
+              <a :href="ctx.url.registrationUrl" x-text="$msg('doRegister')"></a>
+            </p>
+          </div>
+        </template>
+      </footer>
+    </main>
+  </div>
+</div>

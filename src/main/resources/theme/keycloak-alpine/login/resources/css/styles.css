@@ -1,0 +1,490 @@
+/**
+ * Keycloak Alpine Login Theme Styles
+ * 
+ * This stylesheet provides theme-specific styling for the Alpine.js login theme.
+ * It builds on top of PatternFly v5 styles loaded via stylesCommon.
+ */
+
+/* =====================================================
+   CSS Custom Properties (Theme Variables)
+   ===================================================== */
+:root {
+  --kc-login-max-width: 28rem;
+  --kc-login-padding: 2rem;
+  --kc-login-bg: var(--pf-v5-global--BackgroundColor--100);
+  --kc-login-card-bg: var(--pf-v5-global--BackgroundColor--100);
+  --kc-login-card-shadow: var(--pf-v5-global--BoxShadow--lg);
+  --kc-login-border-radius: var(--pf-v5-global--BorderRadius--lg);
+  --kc-link-color: var(--pf-v5-global--link--Color);
+  --kc-error-color: var(--pf-v5-global--danger-color--100);
+  --kc-success-color: var(--pf-v5-global--success-color--100);
+}
+
+/* Dark mode support */
+.pf-v5-theme-dark {
+  --kc-login-bg: var(--pf-v5-global--BackgroundColor--dark-100);
+  --kc-login-card-bg: var(--pf-v5-global--BackgroundColor--dark-200);
+}
+
+/* =====================================================
+   Base Layout
+   ===================================================== */
+body.kc-login-alpine {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--kc-login-bg);
+  padding: 1rem;
+}
+
+#kc-container {
+  width: 100%;
+  max-width: var(--kc-login-max-width);
+}
+
+/* =====================================================
+   Login Card
+   ===================================================== */
+.pf-v5-c-login {
+  background-color: var(--kc-login-card-bg);
+  border-radius: var(--kc-login-border-radius);
+  box-shadow: var(--kc-login-card-shadow);
+  padding: var(--kc-login-padding);
+}
+
+.pf-v5-c-login__container {
+  width: 100%;
+}
+
+.pf-v5-c-login__main {
+  width: 100%;
+}
+
+.pf-v5-c-login__main-header {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.pf-v5-c-login__main-header h1 {
+  margin-bottom: 0.5rem;
+}
+
+.pf-v5-c-login__main-header-desc {
+  color: var(--pf-v5-global--Color--200);
+  font-size: var(--pf-v5-global--FontSize--sm);
+}
+
+.pf-v5-c-login__main-body {
+  margin-bottom: 1.5rem;
+}
+
+.pf-v5-c-login__main-footer {
+  text-align: center;
+  padding-top: 1rem;
+  border-top: 1px solid var(--pf-v5-global--BorderColor--100);
+}
+
+.pf-v5-c-login__main-footer-band {
+  margin-top: 1rem;
+}
+
+.pf-v5-c-login__main-footer-band-item {
+  margin: 0;
+}
+
+.pf-v5-c-login__footer {
+  margin-top: 1.5rem;
+  text-align: center;
+  color: var(--pf-v5-global--Color--200);
+  font-size: var(--pf-v5-global--FontSize--sm);
+}
+
+/* =====================================================
+   Form Styling
+   ===================================================== */
+.pf-v5-c-form__group {
+  margin-bottom: 1rem;
+}
+
+.pf-v5-c-form__group-label {
+  margin-bottom: 0.5rem;
+}
+
+.pf-v5-c-form__label {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-weight: var(--pf-v5-global--FontWeight--bold);
+  font-size: var(--pf-v5-global--FontSize--sm);
+}
+
+.pf-v5-c-form__label-required {
+  color: var(--kc-error-color);
+}
+
+.pf-v5-c-form-control {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  border: 1px solid var(--pf-v5-global--BorderColor--100);
+  border-radius: var(--pf-v5-global--BorderRadius--sm);
+  background-color: var(--pf-v5-global--BackgroundColor--100);
+  color: var(--pf-v5-global--Color--100);
+}
+
+.pf-v5-c-form-control:focus {
+  outline: 2px solid var(--pf-v5-global--primary-color--100);
+  outline-offset: 1px;
+}
+
+.pf-v5-c-form-control.pf-m-error {
+  border-color: var(--kc-error-color);
+}
+
+.pf-v5-c-form__helper-text {
+  margin-top: 0.25rem;
+  font-size: var(--pf-v5-global--FontSize--sm);
+}
+
+.pf-v5-c-form__helper-text.pf-m-error {
+  color: var(--kc-error-color);
+}
+
+.pf-v5-c-form__helper-text a {
+  color: var(--kc-link-color);
+  text-decoration: none;
+}
+
+.pf-v5-c-form__helper-text a:hover {
+  text-decoration: underline;
+}
+
+.pf-v5-c-form__group.pf-m-action {
+  margin-top: 1.5rem;
+}
+
+/* =====================================================
+   Input Groups
+   ===================================================== */
+.pf-v5-c-input-group {
+  display: flex;
+  align-items: stretch;
+}
+
+.pf-v5-c-input-group__item {
+  display: flex;
+}
+
+.pf-v5-c-input-group__item.pf-m-fill {
+  flex: 1;
+}
+
+.pf-v5-c-input-group__item .pf-v5-c-form-control {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.pf-v5-c-input-group__item:last-child .pf-v5-c-button {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+/* =====================================================
+   Buttons
+   ===================================================== */
+.pf-v5-c-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: var(--pf-v5-global--FontWeight--bold);
+  border: none;
+  border-radius: var(--pf-v5-global--BorderRadius--sm);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.pf-v5-c-button.pf-m-primary {
+  background-color: var(--pf-v5-global--primary-color--100);
+  color: var(--pf-v5-global--Color--light-100);
+}
+
+.pf-v5-c-button.pf-m-primary:hover {
+  background-color: var(--pf-v5-global--primary-color--200);
+}
+
+.pf-v5-c-button.pf-m-secondary {
+  background-color: transparent;
+  border: 1px solid var(--pf-v5-global--primary-color--100);
+  color: var(--pf-v5-global--primary-color--100);
+}
+
+.pf-v5-c-button.pf-m-secondary:hover {
+  background-color: var(--pf-v5-global--primary-color--100);
+  color: var(--pf-v5-global--Color--light-100);
+}
+
+.pf-v5-c-button.pf-m-link {
+  background-color: transparent;
+  color: var(--kc-link-color);
+  padding: 0;
+}
+
+.pf-v5-c-button.pf-m-link:hover {
+  text-decoration: underline;
+}
+
+.pf-v5-c-button.pf-m-control {
+  background-color: var(--pf-v5-global--BackgroundColor--200);
+  color: var(--pf-v5-global--Color--100);
+  border: 1px solid var(--pf-v5-global--BorderColor--100);
+}
+
+.pf-v5-c-button.pf-m-block {
+  width: 100%;
+}
+
+.pf-v5-c-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* =====================================================
+   Checkbox
+   ===================================================== */
+.pf-v5-c-check {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pf-v5-c-check__input {
+  width: 1rem;
+  height: 1rem;
+}
+
+.pf-v5-c-check__label {
+  font-size: var(--pf-v5-global--FontSize--sm);
+}
+
+/* =====================================================
+   Radio
+   ===================================================== */
+.pf-v5-c-radio {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.pf-v5-c-radio__input {
+  width: 1rem;
+  height: 1rem;
+}
+
+.pf-v5-c-radio__label {
+  font-size: var(--pf-v5-global--FontSize--sm);
+}
+
+/* =====================================================
+   Alerts
+   ===================================================== */
+.pf-v5-c-alert {
+  display: flex;
+  gap: 0.75rem;
+  padding: 1rem;
+  border-radius: var(--pf-v5-global--BorderRadius--sm);
+  margin-bottom: 1rem;
+}
+
+.pf-v5-c-alert.pf-m-inline {
+  background-color: var(--pf-v5-global--BackgroundColor--200);
+}
+
+.pf-v5-c-alert.pf-m-success {
+  border-left: 4px solid var(--kc-success-color);
+}
+
+.pf-v5-c-alert.pf-m-danger {
+  border-left: 4px solid var(--kc-error-color);
+}
+
+.pf-v5-c-alert.pf-m-warning {
+  border-left: 4px solid var(--pf-v5-global--warning-color--100);
+}
+
+.pf-v5-c-alert.pf-m-info {
+  border-left: 4px solid var(--pf-v5-global--info-color--100);
+}
+
+.pf-v5-c-alert__icon {
+  flex-shrink: 0;
+}
+
+.pf-v5-c-alert__title {
+  margin: 0;
+  font-weight: var(--pf-v5-global--FontWeight--bold);
+}
+
+/* =====================================================
+   Divider
+   ===================================================== */
+.pf-v5-c-divider {
+  border: none;
+  border-top: 1px solid var(--pf-v5-global--BorderColor--100);
+  margin: 1.5rem 0;
+}
+
+/* =====================================================
+   Lists
+   ===================================================== */
+.pf-v5-c-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pf-v5-c-list:not(.pf-m-plain) {
+  padding-left: 1.5rem;
+  list-style: disc;
+}
+
+.pf-v5-c-list li {
+  margin-bottom: 0.5rem;
+}
+
+/* =====================================================
+   Flex Layout
+   ===================================================== */
+.pf-v5-l-flex {
+  display: flex;
+  gap: 1rem;
+}
+
+.pf-v5-l-flex.pf-m-column {
+  flex-direction: column;
+}
+
+/* =====================================================
+   Social Providers
+   ===================================================== */
+.kc-social-providers ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* =====================================================
+   TOTP / Recovery Codes
+   ===================================================== */
+.kc-totp-qr {
+  display: block;
+  margin: 1rem auto;
+  max-width: 200px;
+}
+
+.kc-totp-secret {
+  text-align: center;
+  font-size: 1.25rem;
+  word-break: break-all;
+}
+
+.kc-recovery-codes {
+  margin: 1rem 0;
+}
+
+.kc-recovery-codes ul {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.kc-recovery-codes code {
+  font-family: monospace;
+  background-color: var(--pf-v5-global--BackgroundColor--200);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--pf-v5-global--BorderRadius--sm);
+}
+
+/* =====================================================
+   Code Display
+   ===================================================== */
+.kc-code-display {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.kc-code-display code {
+  flex: 1;
+  font-family: monospace;
+  font-size: 1.25rem;
+  background-color: var(--pf-v5-global--BackgroundColor--200);
+  padding: 0.75rem 1rem;
+  border-radius: var(--pf-v5-global--BorderRadius--sm);
+  word-break: break-all;
+}
+
+/* =====================================================
+   Data List (for select authenticator)
+   ===================================================== */
+.pf-v5-c-data-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pf-v5-c-data-list__item {
+  border-bottom: 1px solid var(--pf-v5-global--BorderColor--100);
+  padding: 1rem 0;
+}
+
+.pf-v5-c-data-list__item:first-child {
+  border-top: 1px solid var(--pf-v5-global--BorderColor--100);
+}
+
+.pf-v5-c-data-list__cell-text {
+  color: var(--pf-v5-global--Color--200);
+  font-size: var(--pf-v5-global--FontSize--sm);
+  margin-top: 0.25rem;
+}
+
+/* =====================================================
+   Locale Selector
+   ===================================================== */
+.pf-v5-c-login__header-locale {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+.pf-v5-c-login__header-locale select {
+  padding: 0.25rem 0.5rem;
+  font-size: var(--pf-v5-global--FontSize--sm);
+  border: 1px solid var(--pf-v5-global--BorderColor--100);
+  border-radius: var(--pf-v5-global--BorderRadius--sm);
+  background-color: var(--pf-v5-global--BackgroundColor--100);
+}
+
+/* =====================================================
+   Responsive Adjustments
+   ===================================================== */
+@media (max-width: 480px) {
+  :root {
+    --kc-login-padding: 1.5rem;
+  }
+  
+  .pf-v5-l-flex:not(.pf-m-column) {
+    flex-direction: column;
+  }
+  
+  .kc-recovery-codes ul {
+    grid-template-columns: 1fr;
+  }
+}

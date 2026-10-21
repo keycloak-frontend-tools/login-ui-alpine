@@ -1,0 +1,130 @@
+<div class="pf-v5-c-login" x-data="configTotpPage">
+  <div class="pf-v5-c-login__container">
+    <main class="pf-v5-c-login__main">
+      <header class="pf-v5-c-login__main-header">
+        <h1 class="pf-v5-c-title pf-m-3xl" x-text="$msg('loginTotpTitle')"></h1>
+      </header>
+      
+      <div class="pf-v5-c-login__main-body">
+        <template x-if="ctx.message && ctx.message.summary">
+          <div x-data="kcAlert">
+            <div class="pf-v5-c-alert pf-m-inline" :class="alertClass">
+              <div class="pf-v5-c-alert__icon">
+                <i :class="iconClass"></i>
+              </div>
+              <p class="pf-v5-c-alert__title" x-html="ctx.message.summary"></p>
+            </div>
+          </div>
+        </template>
+        
+        <ol class="pf-v5-c-list">
+          <li>
+            <p x-text="$msg('loginTotpStep1')"></p>
+            <ul class="pf-v5-c-list pf-m-plain">
+              <template x-for="app in ctx.totp?.supportedApplications || []" :key="app">
+                <li x-text="app"></li>
+              </template>
+            </ul>
+          </li>
+          
+          <li>
+            <template x-if="!showManual">
+              <div>
+                <p x-text="$msg('loginTotpScanBarcode')"></p>
+                <img :src="'data:image/png;base64,' + ctx.totp?.totpSecretQrCode" alt="QR Code" class="kc-totp-qr" />
+                <p>
+                  <a href="#" @click.prevent="toggleManual" x-text="$msg('loginTotpUnableToScan')"></a>
+                </p>
+              </div>
+            </template>
+            <template x-if="showManual">
+              <div>
+                <p x-text="$msg('loginTotpManualStep2')"></p>
+                <p class="kc-totp-secret">
+                  <code x-text="ctx.totp?.totpSecretEncoded"></code>
+                </p>
+                <p x-text="$msg('loginTotpManualStep3')"></p>
+                <ul class="pf-v5-c-list">
+                  <li>Type: <code x-text="ctx.totp?.policy?.type"></code></li>
+                  <li>Algorithm: <code x-text="ctx.totp?.policy?.algorithm"></code></li>
+                  <li>Digits: <code x-text="ctx.totp?.policy?.digits"></code></li>
+                  <template x-if="ctx.totp?.policy?.type === 'totp'">
+                    <li>Period: <code x-text="ctx.totp?.policy?.period"></code></li>
+                  </template>
+                </ul>
+                <p>
+                  <a href="#" @click.prevent="toggleManual" x-text="$msg('loginTotpScanBarcode')"></a>
+                </p>
+              </div>
+            </template>
+          </li>
+          
+          <li>
+            <p x-text="$msg('loginTotpStep3')"></p>
+          </li>
+        </ol>
+        
+        <form class="pf-v5-c-form" :action="ctx.url.loginAction" method="post">
+          <input type="hidden" name="totpSecret" :value="ctx.totp?.totpSecret" />
+          
+          <div class="pf-v5-c-form__group">
+            <div class="pf-v5-c-form__group-label">
+              <label class="pf-v5-c-form__label" for="totp">
+                <span class="pf-v5-c-form__label-text" x-text="$msg('authenticatorCode')"></span>
+                <span class="pf-v5-c-form__label-required" aria-hidden="true">*</span>
+              </label>
+            </div>
+            <div class="pf-v5-c-form__group-control">
+              <input
+                class="pf-v5-c-form-control"
+                :class="{ 'pf-m-error': totpError }"
+                type="text"
+                id="totp"
+                name="totp"
+                autocomplete="one-time-code"
+                autofocus
+                required
+              />
+              <template x-if="totpError">
+                <div class="pf-v5-c-form__helper-text pf-m-error">
+                  <span x-text="totpError"></span>
+                </div>
+              </template>
+            </div>
+          </div>
+          
+          <div class="pf-v5-c-form__group">
+            <div class="pf-v5-c-form__group-label">
+              <label class="pf-v5-c-form__label" for="userLabel">
+                <span class="pf-v5-c-form__label-text" x-text="$msg('loginTotpDeviceName')"></span>
+              </label>
+            </div>
+            <div class="pf-v5-c-form__group-control">
+              <input
+                class="pf-v5-c-form-control"
+                :class="{ 'pf-m-error': userLabelError }"
+                type="text"
+                id="userLabel"
+                name="userLabel"
+              />
+              <template x-if="userLabelError">
+                <div class="pf-v5-c-form__helper-text pf-m-error">
+                  <span x-text="userLabelError"></span>
+                </div>
+              </template>
+            </div>
+          </div>
+          
+          <div class="pf-v5-c-form__group pf-m-action">
+            <div class="pf-v5-l-flex">
+              <template x-if="ctx.isAppInitiatedAction">
+                <button type="submit" name="cancel-aia" value="true" class="pf-v5-c-button pf-m-secondary" x-text="$msg('doCancel')"></button>
+              </template>
+              <button type="submit" class="pf-v5-c-button pf-m-primary" x-text="$msg('doSubmit')"></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+<div class="pf-v5-c-login" x-data="webauthnErrorPage">
+  <div class="pf-v5-c-login__container">
+    <main class="pf-v5-c-login__main">
+      <header class="pf-v5-c-login__main-header">
+        <h1 class="pf-v5-c-title pf-m-3xl">Security Key Error</h1>
+      </header>
+      
+      <div class="pf-v5-c-login__main-body">
+        <div class="pf-v5-c-alert pf-m-danger pf-m-inline">
+          <div class="pf-v5-c-alert__icon">
+            <i class="fas fa-exclamation-circle"></i>
+          </div>
+          <p class="pf-v5-c-alert__title" x-html="ctx.message?.summary || 'An error occurred with your security key.'"></p>
+        </div>
+        
+        <form class="pf-v5-c-form" :action="ctx.url.loginAction" method="post">
+          <div class="pf-v5-c-form__group pf-m-action">
+            <div class="pf-v5-l-flex">
+              <a :href="ctx.url.loginRestartFlowUrl" class="pf-v5-c-button pf-m-secondary" x-text="$msg('doTryAgain')"></a>
+            </div>
+          </div>
+        </form>
+      </div>
+      
+      <footer class="pf-v5-c-login__main-footer">
+        <template x-if="ctx.auth?.showTryAnotherWayLink">
+          <form :action="ctx.url.loginAction" method="post">
+            <input type="hidden" name="tryAnotherWay" value="on" />
+            <button type="submit" class="pf-v5-c-button pf-m-link" x-text="$msg('doTryAnotherWay')"></button>
+          </form>
+        </template>
+      </footer>
+    </main>
+  </div>
+</div>

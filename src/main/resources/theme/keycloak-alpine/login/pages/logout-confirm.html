@@ -1,0 +1,37 @@
+<div class="pf-v5-c-login" x-data="logoutConfirmPage">
+  <div class="pf-v5-c-login__container">
+    <main class="pf-v5-c-login__main">
+      <header class="pf-v5-c-login__main-header">
+        <h1 class="pf-v5-c-title pf-m-3xl" x-text="$msg('logoutConfirmTitle')"></h1>
+      </header>
+      
+      <div class="pf-v5-c-login__main-body">
+        <template x-if="ctx.message && ctx.message.summary">
+          <div x-data="kcAlert">
+            <div class="pf-v5-c-alert pf-m-inline" :class="alertClass">
+              <div class="pf-v5-c-alert__icon">
+                <i :class="iconClass"></i>
+              </div>
+              <p class="pf-v5-c-alert__title" x-html="ctx.message.summary"></p>
+            </div>
+          </div>
+        </template>
+        
+        <p x-text="$msg('logoutConfirmHeader')"></p>
+        
+        <form class="pf-v5-c-form" :action="ctx.url.logoutConfirmAction" method="post">
+          <input type="hidden" name="session_code" :value="ctx.logoutConfirm?.code" />
+          
+          <div class="pf-v5-c-form__group pf-m-action">
+            <div class="pf-v5-l-flex">
+              <template x-if="ctx.logoutConfirm?.skipLink">
+                <a :href="ctx.logoutConfirm.skipLink" class="pf-v5-c-button pf-m-secondary" x-text="$msg('doNo')"></a>
+              </template>
+              <button type="submit" class="pf-v5-c-button pf-m-primary" name="confirmLogout" x-text="$msg('doLogout')"></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+</div>

@@ -1,0 +1,67 @@
+<div class="pf-v5-c-login" x-data="webauthnPage">
+  <div class="pf-v5-c-login__container">
+    <main class="pf-v5-c-login__main">
+      <header class="pf-v5-c-login__main-header">
+        <h1 class="pf-v5-c-title pf-m-3xl">Security Key</h1>
+        <template x-if="ctx.auth?.showUsername">
+          <div class="pf-v5-c-login__main-header-desc">
+            <span x-text="ctx.auth.attemptedUsername"></span>
+            <a :href="ctx.url.loginRestartFlowUrl" class="pf-v5-c-button pf-m-link pf-m-inline">
+              <i class="fas fa-redo"></i>
+            </a>
+          </div>
+        </template>
+      </header>
+      
+      <div class="pf-v5-c-login__main-body">
+        <template x-if="ctx.message && ctx.message.summary">
+          <div x-data="kcAlert">
+            <div class="pf-v5-c-alert pf-m-inline" :class="alertClass">
+              <div class="pf-v5-c-alert__icon">
+                <i :class="iconClass"></i>
+              </div>
+              <p class="pf-v5-c-alert__title" x-html="ctx.message.summary"></p>
+            </div>
+          </div>
+        </template>
+        
+        <template x-if="error">
+          <div class="pf-v5-c-alert pf-m-danger pf-m-inline">
+            <div class="pf-v5-c-alert__icon">
+              <i class="fas fa-exclamation-circle"></i>
+            </div>
+            <p class="pf-v5-c-alert__title" x-text="error"></p>
+          </div>
+        </template>
+        
+        <p>Use your security key to sign in.</p>
+        
+        <form id="webauthn-form" class="pf-v5-c-form" :action="ctx.url.loginAction" method="post">
+          <div class="pf-v5-c-form__group pf-m-action">
+            <button 
+              type="submit" 
+              class="pf-v5-c-button pf-m-primary pf-m-block"
+              :disabled="isAuthenticating"
+            >
+              <template x-if="isAuthenticating">
+                <span><i class="fas fa-spinner fa-spin"></i> Authenticating...</span>
+              </template>
+              <template x-if="!isAuthenticating">
+                <span><i class="fas fa-key"></i> Use Security Key</span>
+              </template>
+            </button>
+          </div>
+        </form>
+      </div>
+      
+      <footer class="pf-v5-c-login__main-footer">
+        <template x-if="ctx.auth?.showTryAnotherWayLink">
+          <form :action="ctx.url.loginAction" method="post">
+            <input type="hidden" name="tryAnotherWay" value="on" />
+            <button type="submit" class="pf-v5-c-button pf-m-link" x-text="$msg('doTryAnotherWay')"></button>
+          </form>
+        </template>
+      </footer>
+    </main>
+  </div>
+</div>

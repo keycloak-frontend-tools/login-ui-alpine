@@ -1,0 +1,59 @@
+<div class="pf-v5-c-login" x-data="selectAuthenticatorPage">
+  <div class="pf-v5-c-login__container">
+    <main class="pf-v5-c-login__main">
+      <header class="pf-v5-c-login__main-header">
+        <h1 class="pf-v5-c-title pf-m-3xl" x-text="$msg('loginChooseAuthenticator')"></h1>
+        <template x-if="ctx.auth?.showUsername">
+          <div class="pf-v5-c-login__main-header-desc">
+            <span x-text="ctx.auth.attemptedUsername"></span>
+            <a :href="ctx.url.loginRestartFlowUrl" class="pf-v5-c-button pf-m-link pf-m-inline">
+              <i class="fas fa-redo"></i>
+            </a>
+          </div>
+        </template>
+      </header>
+      
+      <div class="pf-v5-c-login__main-body">
+        <template x-if="ctx.message && ctx.message.summary">
+          <div x-data="kcAlert">
+            <div class="pf-v5-c-alert pf-m-inline" :class="alertClass">
+              <div class="pf-v5-c-alert__icon">
+                <i :class="iconClass"></i>
+              </div>
+              <p class="pf-v5-c-alert__title" x-html="ctx.message.summary"></p>
+            </div>
+          </div>
+        </template>
+        
+        <form class="pf-v5-c-form" :action="ctx.url.loginAction" method="post">
+          <ul class="pf-v5-c-data-list" role="list">
+            <template x-for="selection in ctx.auth?.authenticationSelections || []" :key="selection.authExecId">
+              <li class="pf-v5-c-data-list__item">
+                <div class="pf-v5-c-data-list__item-row">
+                  <div class="pf-v5-c-data-list__item-content">
+                    <div class="pf-v5-c-data-list__cell">
+                      <button 
+                        type="submit" 
+                        name="authenticationExecution" 
+                        :value="selection.authExecId"
+                        class="pf-v5-c-button pf-m-link pf-m-inline"
+                      >
+                        <template x-if="selection.iconCssClass">
+                          <i :class="selection.iconCssClass"></i>
+                        </template>
+                        <span x-text="selection.displayName"></span>
+                      </button>
+                      <template x-if="selection.helpText">
+                        <p class="pf-v5-c-data-list__cell-text" x-text="selection.helpText"></p>
+                      </template>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </template>
+          </ul>
+        </form>
+      </div>
+    </main>
+  </div>
+</div>

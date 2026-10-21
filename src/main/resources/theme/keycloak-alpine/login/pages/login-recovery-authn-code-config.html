@@ -1,0 +1,62 @@
+<div class="pf-v5-c-login" x-data="recoveryCodesConfigPage">
+  <div class="pf-v5-c-login__container">
+    <main class="pf-v5-c-login__main">
+      <header class="pf-v5-c-login__main-header">
+        <h1 class="pf-v5-c-title pf-m-3xl">Recovery Codes</h1>
+      </header>
+      
+      <div class="pf-v5-c-login__main-body">
+        <template x-if="ctx.message && ctx.message.summary">
+          <div x-data="kcAlert">
+            <div class="pf-v5-c-alert pf-m-inline" :class="alertClass">
+              <div class="pf-v5-c-alert__icon">
+                <i :class="iconClass"></i>
+              </div>
+              <p class="pf-v5-c-alert__title" x-html="ctx.message.summary"></p>
+            </div>
+          </div>
+        </template>
+        
+        <div class="pf-v5-c-alert pf-m-warning pf-m-inline">
+          <div class="pf-v5-c-alert__icon">
+            <i class="fas fa-exclamation-triangle"></i>
+          </div>
+          <p class="pf-v5-c-alert__title">Save these recovery codes in a safe place. You will need them if you lose access to your authenticator.</p>
+        </div>
+        
+        <div class="kc-recovery-codes">
+          <ul class="pf-v5-c-list">
+            <template x-for="(code, index) in ctx.recoveryAuthnCodesConfigBean?.generatedRecoveryAuthnCodes || []" :key="index">
+              <li>
+                <code x-text="code"></code>
+              </li>
+            </template>
+          </ul>
+          
+          <button type="button" class="pf-v5-c-button pf-m-secondary" @click="copyToClipboard">
+            <template x-if="!copied">
+              <span><i class="fas fa-copy"></i> Copy codes</span>
+            </template>
+            <template x-if="copied">
+              <span><i class="fas fa-check"></i> Copied!</span>
+            </template>
+          </button>
+        </div>
+        
+        <form class="pf-v5-c-form" :action="ctx.url.loginAction" method="post">
+          <input type="hidden" name="generatedRecoveryAuthnCodes" :value="ctx.recoveryAuthnCodesConfigBean?.generatedRecoveryAuthnCodesAsString" />
+          <input type="hidden" name="generatedAt" :value="ctx.recoveryAuthnCodesConfigBean?.generatedAt" />
+          
+          <div class="pf-v5-c-form__group pf-m-action">
+            <div class="pf-v5-l-flex">
+              <template x-if="ctx.isAppInitiatedAction">
+                <button type="submit" name="cancel-aia" value="true" class="pf-v5-c-button pf-m-secondary" x-text="$msg('doCancel')"></button>
+              </template>
+              <button type="submit" class="pf-v5-c-button pf-m-primary" x-text="$msg('doSubmit')"></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+</div>

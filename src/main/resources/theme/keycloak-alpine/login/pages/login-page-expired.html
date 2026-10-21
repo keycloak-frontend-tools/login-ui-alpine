@@ -1,0 +1,21 @@
+<div class="pf-v5-c-login" x-data="pageExpiredPage">
+  <div class="pf-v5-c-login__container">
+    <main class="pf-v5-c-login__main">
+      <header class="pf-v5-c-login__main-header">
+        <h1 class="pf-v5-c-title pf-m-3xl" x-text="$msg('pageExpiredTitle')"></h1>
+      </header>
+      
+      <div class="pf-v5-c-login__main-body">
+        <p x-text="$msg('pageExpiredMsg1')"></p>
+        <p>
+          <a :href="ctx.url.loginRestartFlowUrl" x-text="$msg('doClickHere')"></a>
+        </p>
+        
+        <p x-text="$msg('pageExpiredMsg2')"></p>
+        <p>
+          <a :href="ctx.url.loginAction" x-text="$msg('doClickHere')"></a>
+        </p>
+      </div>
+    </main>
+  </div>
+</div>

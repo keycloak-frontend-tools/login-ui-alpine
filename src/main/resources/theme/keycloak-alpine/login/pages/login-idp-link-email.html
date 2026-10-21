@@ -1,0 +1,38 @@
+<div class="pf-v5-c-login" x-data="idpLinkEmailPage">
+  <div class="pf-v5-c-login__container">
+    <main class="pf-v5-c-login__main">
+      <header class="pf-v5-c-login__main-header">
+        <h1 class="pf-v5-c-title pf-m-3xl" x-text="$msg('emailLinkIdpTitle', ctx.idpDisplayName || '')"></h1>
+      </header>
+      
+      <div class="pf-v5-c-login__main-body">
+        <template x-if="ctx.message && ctx.message.summary">
+          <div x-data="kcAlert">
+            <div class="pf-v5-c-alert pf-m-inline" :class="alertClass">
+              <div class="pf-v5-c-alert__icon">
+                <i :class="iconClass"></i>
+              </div>
+              <p class="pf-v5-c-alert__title" x-html="ctx.message.summary"></p>
+            </div>
+          </div>
+        </template>
+        
+        <p x-text="$msg('emailLinkIdp1', ctx.idpDisplayName || '', ctx.brokerContext?.username || '')"></p>
+        <p x-text="$msg('emailLinkIdp2')"></p>
+        <p x-text="$msg('emailLinkIdp3')"></p>
+        
+        <form class="pf-v5-c-form" :action="ctx.url.loginAction" method="post">
+          <div class="pf-v5-c-form__group pf-m-action">
+            <button type="submit" class="pf-v5-c-button pf-m-primary pf-m-block" x-text="$msg('doClickHere')"></button>
+          </div>
+        </form>
+      </div>
+      
+      <footer class="pf-v5-c-login__main-footer">
+        <p class="pf-v5-c-login__main-footer-band-item">
+          <a :href="ctx.url.loginUrl" x-text="$msg('backToLogin')"></a>
+        </p>
+      </footer>
+    </main>
+  </div>
+</div>

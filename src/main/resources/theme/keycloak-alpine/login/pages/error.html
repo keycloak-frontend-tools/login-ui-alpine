@@ -1,0 +1,24 @@
+<div class="pf-v5-c-login" x-data="errorPage">
+  <div class="pf-v5-c-login__container">
+    <main class="pf-v5-c-login__main">
+      <header class="pf-v5-c-login__main-header">
+        <h1 class="pf-v5-c-title pf-m-3xl" x-text="$msg('errorTitle')"></h1>
+      </header>
+      
+      <div class="pf-v5-c-login__main-body">
+        <div class="pf-v5-c-alert pf-m-danger pf-m-inline">
+          <div class="pf-v5-c-alert__icon">
+            <i class="fas fa-exclamation-circle"></i>
+          </div>
+          <p class="pf-v5-c-alert__title" x-html="ctx.message?.summary || 'An error occurred.'"></p>
+        </div>
+        
+        <template x-if="ctx.client?.baseUrl">
+          <div class="pf-v5-c-form__group pf-m-action">
+            <a :href="ctx.client.baseUrl" class="pf-v5-c-button pf-m-primary" x-text="$msg('backToApplication')"></a>
+          </div>
+        </template>
+      </div>
+    </main>
+  </div>
+</div>

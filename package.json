@@ -1,0 +1,43 @@
+{
+  "name": "@keycloak/keycloak-login-ui-alpine",
+  "version": "1.0.0-SNAPSHOT",
+  "private": true,
+  "type": "module",
+  "description": "Alpine.js based login theme for Keycloak",
+  "scripts": {
+    "dev": "wireit",
+    "build": "wireit",
+    "watch": "wireit"
+  },
+  "dependencies": {
+    "alpinejs": "^3.14.3"
+  },
+  "devDependencies": {
+    "esbuild": "^0.24.0",
+    "wireit": "^0.14.0"
+  },
+  "wireit": {
+    "dev": {
+      "command": "esbuild src/main.js --bundle --outfile=src/main/resources/theme/keycloak-alpine/login/resources/js/main.js --format=esm --watch --sourcemap"
+    },
+    "build": {
+      "command": "esbuild src/main.js --bundle --outfile=src/main/resources/theme/keycloak-alpine/login/resources/js/main.js --format=esm --minify",
+      "files": [
+        "src/**/*.js",
+        "!src/main/resources/**"
+      ],
+      "output": [
+        "src/main/resources/theme/keycloak-alpine/login/resources/js/main.js"
+      ]
+    },
+    "watch": {
+      "command": "esbuild src/main.js --bundle --outfile=src/main/resources/theme/keycloak-alpine/login/resources/js/main.js --format=esm --watch",
+      "service": true
+    }
+  },
+  "author": {
+    "name": "Red Hat, Inc.",
+    "url": "https://www.keycloak.org/"
+  },
+  "license": "Apache-2.0"
+}
